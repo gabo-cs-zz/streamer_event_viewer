@@ -1,0 +1,58 @@
+<div class="total mb-4">
+  <p class="lead">1. Total number of events received by each streamer</p>
+  <div id="total-chart"></div>
+</div>
+<div class="counts mt-4">
+  <p class="lead">2. Count of events by event_type and streamer name</p>
+  <div id="count-chart"></div>
+</div>
+
+<script>
+  google.charts.load('current', {packages: ['corechart']});
+  google.charts.setOnLoadCallback(drawCharts);
+
+  function drawTotalEventsChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['streamer', 'events'],
+    ].concat(<%= raw @events_by_streamer %>));
+
+    var options = {
+      haxis: {
+        title: 'streamer'
+      },
+      vaxis: {
+        title: 'events_number'
+      }
+    };
+
+    var chart = new google.visualization.AreaChart(
+      document.getElementById('total-chart')
+    );
+    chart.draw(data, options);
+  }
+
+  function drawCountOfEvents() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Streamer');
+    data.addColumn('string', 'Event type');
+    data.addColumn('number', 'Event number');
+    data.addRows(<%= raw @count_of_events %>);
+
+    var options = {
+      "title": "Count of events by event_type and streamer name",
+      "cssClassNames": { "headerRow": "text-black", "tableCell": "text-black" }
+    };
+
+    google.visualization.drawChart({
+      "chartType": "Table",
+      "containerId": "count-chart",
+      "options": options,
+      "dataTable": data
+    });
+  }
+
+  function drawCharts() {
+    drawTotalEventsChart();
+    drawCountOfEvents();
+  }
+</script>

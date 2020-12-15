@@ -1,0 +1,17 @@
+<% if @live_streamer.present? %>
+  <p>You're currently live-following:</p>
+
+  <div class="d-flex justify-content-around align-items-center">
+    <%= link_to @live_streamer.name, streamer_path(@live_streamer) %>
+    <%= link_to 'Stop', streamer_path(@live_streamer), class: 'btn btn-light btn-sm', method: :put, data: { confirm: 'Are you sure?' } %>
+  </div>
+
+<% else %>
+  <%= form_for(:streamer, url: streamers_path, html: { class: 'text-left' }) do |f| %>
+    <%= f.label :name, "STREAMER NAME" %>
+    <div class="d-flex">
+      <%= f.text_field :name, placeholder: "Enter your favorite streamer's name", class: "form-control", required: true %>
+      <%= f.submit 'Submit', class: 'btn btn-outline-light ml-2' %>
+    </div>
+  <% end %>
+<% end %>

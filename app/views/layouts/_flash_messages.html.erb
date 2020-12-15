@@ -3,15 +3,15 @@
     <% if flash[:notice].present? %>
       <div class="alert alert-success fade show" role="alert">
         <strong style="color: #5cb85c;">Great! </strong><%= value %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="padding-right:80">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
     <% end %>
     <% if flash[:alert].present? %>
-      <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+      <div class="alert alert-danger fade show" role="alert">
         <strong style="color: #d9534f;">Sorry! </strong><%= value %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="padding-right:80">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

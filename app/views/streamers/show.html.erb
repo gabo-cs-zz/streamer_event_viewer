@@ -1,0 +1,45 @@
+<div class="sisa d-flex justify-content-between">
+  <div id="events-container">
+    <p>Recent events: </p>
+    <ul id="events-list" class="mr-4">
+      <% @events.each do |event| %>
+        <li class="events-list-item" id="<%= event.id %>">new <%= event.event_type %>: <%= event.viewer_name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="twitch-embed"></div>
+</div>
+
+<script type="text/javascript">
+  new Twitch.Embed("twitch-embed", {
+    width: 754,
+    height: 450,
+    channel: "<%= @live_streamer.name %>"
+  });
+</script>
+
+<script>
+  var pusher = new Pusher('<%= Rails.application.credentials.dig(:pusher, :key) %>', {
+    cluster: '<%= Rails.application.credentials.dig(:pusher, :cluster) %>',
+    encrypted: true
+  });
+
+  var channel = pusher.subscribe('<%= @live_streamer.name %>-channel');
+  var container = document.getElementById('events-list');
+
+  channel.bind('new-event', function(data) {
+    let event_id = data.event_id;
+    let event_type = data.event_type;
+    let viewer_name = data.viewer_name;
+    let new_list_item = document.createElement('li');
+    new_list_item.id = event_id;
+    new_list_item.className = 'events-list-item';
+    new_list_item.innerHTML = `new ${event_type}: ${viewer_name}`;
+    new_list_item.style.display = 'none';
+    if (container.getElementsByTagName("li").length == 10){
+      $('#events-list li:last-child').remove();
+    }
+    container.insertBefore(new_list_item, container.firstChild);
+    $(`#${event_id}`).show('slow');
+  });
+</script>

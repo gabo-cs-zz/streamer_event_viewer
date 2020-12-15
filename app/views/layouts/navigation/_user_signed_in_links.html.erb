@@ -1,4 +1,21 @@
-<nav class="nav nav-masthead justify-content-center">
-  <a class="nav-link active" href="#">Home</a>
-  <a class="nav-link" href="#">Livestream</a>
+<nav class="nav nav-masthead">
+  <li class="nav-item mr-3">
+    <%= active_link_to 'Home', root_path, class: 'nav-link', active: :exclusive %>
+  </li>
+  <% if @live_streamer.present? %>
+    <li class="nav-item mr-3">
+      <%= active_link_to 'Streamer', streamer_path(@live_streamer), class: 'nav-link', active: :exclusive %>
+    </li>
+  <% end %>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img src="<%= current_user.image %>" alt="profile_picture" height="25">
+      <span class="ml-1"><%= current_user.name %></span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <small class="dropdown-item disabled"><%= current_user.email %></small>
+      <%= link_to 'Reports', streamers_path, class: 'dropdown-item' %>
+      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+    </div>
+  </li>
 </nav>

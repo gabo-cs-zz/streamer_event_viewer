@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_212021) do
+ActiveRecord::Schema.define(version: 2020_12_13_223742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "streamer_name"
+    t.integer "event_type"
+    t.string "viewer_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["streamer_name"], name: "index_events_on_streamer_name"
+  end
+
+  create_table "streamers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_streamers_on_name", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -31,4 +48,5 @@ ActiveRecord::Schema.define(version: 2020_12_05_212021) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "events", "streamers", column: "streamer_name", primary_key: "name"
 end

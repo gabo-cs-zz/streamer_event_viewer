@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.12.3)
+      concurrent-ruby (~> 1.0)
     actioncable (6.0.3.4)
       actionpack (= 6.0.3.4)
       nio4r (~> 2.0)
@@ -37,6 +39,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     activejob (6.0.3.4)
       activesupport (= 6.0.3.4)
       globalid (>= 0.3.6)
@@ -56,6 +61,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.5.1)
@@ -78,6 +85,7 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
+    httpclient (2.8.3)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
@@ -121,8 +129,14 @@ GEM
       omniauth-oauth2 (~> 1.6)
     orm_adapter (0.5.0)
     pg (1.2.3)
+    public_suffix (4.0.5)
     puma (4.3.7)
       nio4r (~> 2.0)
+    pusher (1.4.3)
+      httpclient (~> 2.8)
+      multi_json (~> 1.15)
+      pusher-signature (~> 0.1.8)
+    pusher-signature (0.1.8)
     rack (2.2.3)
     rack-proxy (0.6.5)
       rack
@@ -211,6 +225,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm (~> 4.11)
+  active_link_to
   bootsnap (>= 1.4.2)
   byebug
   devise
@@ -219,6 +235,7 @@ DEPENDENCIES
   omniauth-twitch
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
+  pusher (~> 1.4, >= 1.4.3)
   rails (~> 6.0.3, >= 6.0.3.4)
   sass-rails (>= 6)
   spring
